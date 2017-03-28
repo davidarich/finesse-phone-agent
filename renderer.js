@@ -5,13 +5,14 @@ let password = '';
 let serverUrl = '';
 let status = 'Not Logged In';
 
-function setCredentials(){
+function agentLogin(){
 
     user = document.getElementById('userTextInput').value;
     password = document.getElementById('passwordTextInput').value;
     serverUrl = document.getElementById('serverUrlTextInput').value;
+    extension = document.getElementById('extensionTextInput').value;
 
-    getStatus()
+    ipcRenderer.send('agent-login', { user: user, password: password, serverUrl: serverUrl, extension: extension} );
 }
 
 function getStatus(){
@@ -24,9 +25,9 @@ function changeStatus(){
 
     let newStatus ='';
     if (status == 'NOT_READY'){
-        newStatus = 'READY'
+        newStatus = 'READY';
     } else if (status == 'READY'){
-        newStatus = 'NOT_READY'
+        newStatus = 'NOT_READY';
     } else {
 
     }
@@ -43,15 +44,15 @@ function renderPage(){
 function initialPageRender(){
     // Add new event listeners
     document
-        .querySelector('#setCredentialsButton')
+        .querySelector('#agentLoginButton')
         .addEventListener('click', (event) => {
-            setCredentials()
+            agentLogin();
         });
 
     document
         .querySelector('#setStatusButton')
         .addEventListener('click', (event) => {
-            changeStatus()
+            changeStatus();
         })
 
     // Update changed variables
@@ -78,12 +79,21 @@ ipcRenderer.on('set-status-reply', (event,arg) => {
         }
 
         else if (status == 'NOT_READY') {
-            status = 'READY'
+            status = 'READY';
         }
 
     }
 
     renderPage();
+
+});
+
+ipcRenderer.on('agent-login-reply', (event,arg) => {
+
+    if (arg === 'OK') {
+        getStatus();
+    }
+
 
 });
 

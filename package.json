@@ -1,18 +1,33 @@
 {
   "name": "finesse-phone-agent",
   "version": "1.0.0",
-  "description": "Unofficial phone",
+  "description": "Unofficial phone agent for Cisco Finesse API",
+  "author": {
+    "name": "Dave Rich",
+    "email": "dave@daverich.net",
+    "url": "http://daverich.net"
+  },
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "devDependencies": {
-    "electron": "~1.6.2"
+    "electron": "~1.6.2",
+    "electron-builder": "^16.4.2"
   },
   "dependencies": {
     "buffer": "^5.0.5",
     "node-xmpp-client": "^3.2.0",
     "request": "^2.81.0",
     "xml-js": "^1.0.2"
+  },
+  "build": {
+    "appId": "finesse-phone-agent",
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity"
+    }
   }
 }
