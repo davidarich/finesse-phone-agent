@@ -1,6 +1,6 @@
 {
   "name": "finesse-phone-agent",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Unofficial phone agent for Cisco Finesse API",
   "author": {
     "name": "Dave Rich",
